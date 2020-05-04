@@ -2,19 +2,19 @@ from django.db import models
 
 # Create your models here.
 class  DroneCategory(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,unique=True)
     class Meta:
         ordering = ('name',)
     def __str__(self):
         return self.name
 
 class Drone(models.Model):
-    name = models.CharField(max_length = 50)
+    name = models.CharField(max_length = 50,unique=True)
     manufacturing_date = models.DateTimeField()
     category = models.ForeignKey('DroneCategory',on_delete=models.CASCADE,related_name='drones')
     inserted_timestamp = models.DateTimeField(auto_now_add=True)
     has_it_competed = models.BooleanField(default=False)
-    class Meta:
+    class  Meta:
         ordering = ('name',)
     def __str__(self):
         return self.name
@@ -46,6 +46,8 @@ class Competition(models.Model):
         specific distance and the drone's
         name."""
     #1 pilot, drone can be in many competition
+    #class name=many attribute name=one
+    #competition=many, pilot=one
     competition_name = models.CharField(max_length = 30)
     pilot = models.ForeignKey('Pilot',related_name='competitions',on_delete=models.CASCADE)
     drone = models.ForeignKey('Drone',on_delete=models.CASCADE)
