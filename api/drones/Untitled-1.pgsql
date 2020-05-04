@@ -1,0 +1,1 @@
+SELECT * FROM drones_pilot
