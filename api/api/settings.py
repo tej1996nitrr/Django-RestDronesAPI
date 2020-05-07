@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'drones',
-    'rest_framework'
+    'rest_framework',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -51,10 +52,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 REST_FRAMEWORK = {
-'DEFAULT_PAGINATION_CLASS':
-#'rest_framework.pagination.LimitOffsetPagination',
-'drones.custompagination.LimitUpperBound',
-'PAGE_SIZE': 2
+    'DEFAULT_PAGINATION_CLASS':
+    'drones.custompagination.LimitUpperBound',
+    'PAGE_SIZE': 2,
+    'DEFAULT_FILTER_BACKENDS': (
+            'django_filters.rest_framework.DjangoFilterBackend',
+            'rest_framework.filters.OrderingFilter',
+            'rest_framework.filters.SearchFilter',
+    ),
 }
 ROOT_URLCONF = 'api.urls'
 
