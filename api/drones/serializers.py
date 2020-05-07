@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Pilot, Competition, Drone, DroneCategory
-
+from django.contrib.auth.models import User
 class DroneCategorySerializer(serializers.HyperlinkedModelSerializer):
     drones = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='drone-detail')
     """The view_name value is 'drone-detail' to indicate the browsable
@@ -14,6 +14,7 @@ class DroneCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 class DroneSerializer(serializers.HyperlinkedModelSerializer):
     #category attribute name sis defined in Drone model
+    owner = serializers.ReadOnlyField(source='owner.username')
     category = serializers.SlugRelatedField(queryset=DroneCategory.objects.all(), slug_field='name')
     class Meta:
         model  =Drone
@@ -24,6 +25,7 @@ class DroneSerializer(serializers.HyperlinkedModelSerializer):
             'manufacturing_date',
             'has_it_competed',
             'inserted_timestamp',
+            'owner',
             )
 
 class CompetitionSerializer(serializers.HyperlinkedModelSerializer):
@@ -70,3 +72,22 @@ class PilotCompetitionSerializer(serializers.ModelSerializer):
         'pilot',
         'drone',
         'competition_name')
+
+class UserDroneSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Drone
+        fields = (
+        'url',
+        'name')
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    """The  'dronesusers' was  specified as the
+        string value for the related_name argument when we added the owner field as a
+        models.ForeignKey instance in the Drone model"""
+    dronesusers = UserDroneSerializer(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = (
+        'url',
+        'pk',
+        'username',
+        'dronesusers')

@@ -14,6 +14,7 @@ class Drone(models.Model):
     category = models.ForeignKey('DroneCategory',on_delete=models.CASCADE,related_name='drones')
     inserted_timestamp = models.DateTimeField(auto_now_add=True)
     has_it_competed = models.BooleanField(default=False)
+    owner = models.ForeignKey('auth.User', related_name='dronesusers',on_delete=models.CASCADE) #creates a backward relation from the User to the Drone model this value indicates the name to use for the relation from the related User object back to a Drone object
     class  Meta:
         ordering = ('name',)
     def __str__(self):

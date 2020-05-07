@@ -21,6 +21,7 @@ class CompetitionFilter(FilterSet):
     field_name='drone__name')
     pilot_name = AllValuesFilter(
     field_name='pilot__name')
+    
 
     class Meta:
         model = Competition
