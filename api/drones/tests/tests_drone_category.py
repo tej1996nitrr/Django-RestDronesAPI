@@ -62,6 +62,17 @@ class TestDroneCategory(APITestCase):
         get_response = self.client.get(url, format='json')
         assert get_response.status_code == status.HTTP_200_OK
         assert get_response.data['name'] == drone_category_name
-    
 
-
+    def test_filter_drone_category(self):
+        drone_category_name1 = "Hexocopter"
+        self.post_drone_category(drone_category_name1)
+        drone_category_name2 = "Octocopter"
+        self.post_drone_category(drone_category_name2)
+        filter_name = {'name':drone_category_name1}
+        url = '{0}?{1}'.format(reverse(DroneCategoryList.name),urlencode(filter_name))
+        print(url)
+        response = self.client.get(url, format='json')
+        print(response)
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data['count'] == 1
+        assert response.data['results'][0]['name'] == drone_category_name1
