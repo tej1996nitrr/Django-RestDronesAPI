@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Pilot, Competition, Drone, DroneCategory
 from django.contrib.auth.models import User
+
 class DroneCategorySerializer(serializers.HyperlinkedModelSerializer):
     drones = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='drone-detail')
     """The view_name value is 'drone-detail' to indicate the browsable

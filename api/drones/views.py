@@ -8,11 +8,10 @@ from .models import DroneCategory,Drone,Pilot,Competition
 from .serializers import DroneCategorySerializer,DroneSerializer,PilotSerializer,PilotCompetitionSerializer
 from django_filters import AllValuesFilter, DateFilter,NumberFilter,FilterSet,DateTimeFilter
 from rest_framework import filters
+from rest_framework import permissions
+from . import user_permissions
 class CompetitionFilter(FilterSet):
-    # from_achievement_date = DateTimeFilter(
-    # name='distance_achievement_date', lookup_expr='gte')
-    # to_achievement_date = DateTimeFilter(
-    # name='distance_achievement_date', lookup_expr='lte')
+   
     min_distance_in_feet = NumberFilter(
     field_name='distance_in_feet', lookup_expr='gte')
     max_distance_in_feet = NumberFilter(
@@ -66,11 +65,21 @@ class DroneList(generics.ListCreateAPIView):
         'name',
         'manufacturing_date',
         )
+    permission_classes = (
+    permissions.IsAuthenticatedOrReadOnly,
+    user_permissions.IsCurrentUserOwnerOrReadOnly,
+    )
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class DroneDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Drone.objects.all()
     serializer_class = DroneSerializer
     name = 'drone-detail'
+    permission_classes = (
+    permissions.IsAuthenticatedOrReadOnly,
+    user_permissions.IsCurrentUserOwnerOrReadOnly,
+)
 
 class PilotList(generics.ListCreateAPIView):
     queryset = Pilot.objects.all()
