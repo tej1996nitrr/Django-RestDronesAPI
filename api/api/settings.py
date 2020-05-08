@@ -70,13 +70,13 @@ REST_FRAMEWORK = {
             'rest_framework.throttling.UserRateThrottle',
         ),
     'DEFAULT_THROTTLE_RATES': {
-            'anon': '3/hour',
-            'user': '10/hour',
-            'drones': '20/hour',
-            'pilots': '15/hour',
-        } ,
-        'DEFAULT_VERSIONING_CLASS':
-            'rest_framework.versioning.NamespaceVersioning',
+
+           'anon': '300/hour',
+            'user': '100/hour',
+            'drones': '200/hour',
+            'pilots': '150/hour',
+        } 
+
 }
 ROOT_URLCONF = 'api.urls'
 
