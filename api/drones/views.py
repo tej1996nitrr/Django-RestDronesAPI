@@ -34,6 +34,7 @@ class CompetitionFilter(FilterSet):
         
 class DroneCategoryList(generics.ListCreateAPIView):
     queryset = DroneCategory.objects.all()
+    # serializer_class = DroneCategorySerializer
     serializer_class = DroneCategorySerializer
     name = 'dronecategory-list'
     filter_fields=('name',)

@@ -2,7 +2,7 @@
     "python.pythonPath": "C:\\Users\\User\\.virtualenvs\\WebServicesDjango-ApCuzmda\\Scripts\\python.exe",
     "git.ignoreLimitWarning": true,
     "python.testing.pytestArgs": [
-        "."
+        "api"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,

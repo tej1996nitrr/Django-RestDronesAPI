@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for api\api\test_settings.py: 100%</title>
+    <title>Coverage for api\drones\custompagination.py: 100%</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery.hotkeys.js"></script>
@@ -16,7 +16,7 @@
 <body class="pyfile">
 <div id="header">
     <div class="content">
-        <h1>Coverage for <b>api\api\test_settings.py</b> :
+        <h1>Coverage for <b>api\drones\custompagination.py</b> :
             <span class="pc_cov">100%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
@@ -51,14 +51,10 @@
     </div>
 </div>
 <div id="source">
-    <p id="t1" class="run"><span class="n"><a href="#t1">1</a></span><span class="t"><span class="key">from</span> <span class="op">.</span><span class="nam">settings</span> <span class="key">import</span> <span class="op">*</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t2" class="run"><span class="n"><a href="#t2">2</a></span><span class="t"><span class="nam">DATABASES</span><span class="op">=</span><span class="op">{</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t3" class="pln"><span class="n"><a href="#t3">3</a></span><span class="t">    <span class="str">'default'</span><span class="op">:</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t4" class="pln"><span class="n"><a href="#t4">4</a></span><span class="t">        <span class="str">'ENGINE'</span><span class="op">:</span> <span class="str">'django.db.backends.sqlite3'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t5" class="pln"><span class="n"><a href="#t5">5</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">":memory:"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t6" class="pln"><span class="n"><a href="#t6">6</a></span><span class="t">    <span class="op">}</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t7" class="pln"><span class="n"><a href="#t7">7</a></span><span class="t"><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t8" class="run"><span class="n"><a href="#t8">8</a></span><span class="t"><span class="nam">EMAIL_BACKEND</span> <span class="op">=</span> <span class="str">'django.core.mail.backends.locmem.EmailBackend'</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t1" class="run"><span class="n"><a href="#t1">1</a></span><span class="t"><span class="key">from</span> <span class="nam">rest_framework</span><span class="op">.</span><span class="nam">pagination</span> <span class="key">import</span> <span class="nam">LimitOffsetPagination</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t2" class="pln"><span class="n"><a href="#t2">2</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t3" class="run"><span class="n"><a href="#t3">3</a></span><span class="t"><span class="key">class</span> <span class="nam">LimitUpperBound</span><span class="op">(</span><span class="nam">LimitOffsetPagination</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t4" class="run"><span class="n"><a href="#t4">4</a></span><span class="t">    <span class="nam">max_limit</span><span class="op">=</span><span class="num">8</span>&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
