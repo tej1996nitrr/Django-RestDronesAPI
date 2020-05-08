@@ -54,7 +54,14 @@ class TestDroneCategory(APITestCase):
         assert patch_response.status_code == status.HTTP_200_OK
         assert patch_response.data['name'] == 'Updated Name'
 
-    
+    def test_get_drone_category(self):
+        """test to get single drone category by id"""
+        drone_category_name="Some Name"
+        response = self.post_drone_category(drone_category_name)
+        url = reverse(DroneCategoryDetail.name,None,{response.data['pk']})
+        get_response = self.client.get(url, format='json')
+        assert get_response.status_code == status.HTTP_200_OK
+        assert get_response.data['name'] == drone_category_name
     
 
 
