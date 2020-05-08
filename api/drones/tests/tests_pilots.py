@@ -12,10 +12,10 @@ from django.test import RequestFactory
 pytestmark = pytest.mark.django_db
 
 class PilotTestCase(APITestCase):
-    def post_pilot(self, name,gender, race_count):
+    def post_pilot(self, name,gender, races_count):
         url = reverse(PilotList.name)
         print(url)
-        data  ={"name":name,"gender":gender,"race_count":race_count}
+        data  ={"name":name,"gender":gender,"races_count":races_count}
         response  = self.client.post(url,data,format="json")
         print(response)
         return response
@@ -25,3 +25,24 @@ class PilotTestCase(APITestCase):
         token = Token.objects.create(user=user)
         self.client.credentials(HTTP_AUTHORIZATION='Token {0}'.format(token.key))
     
+    def test_post_and_get_pilot(self):
+        """Test if  new  pilot is created and retrieved """
+        self.create_user_and_set_token_creds()
+        new_pilot_name = 'Sherlock'
+        new_pilot_gender = Pilot.MALE
+        new_pilot_races_count = 5
+        response = self.post_pilot(new_pilot_name, new_pilot_gender, new_pilot_races_count)
+        assert response.status_code == status.HTTP_201_CREATED
+        assert Pilot.objects.count() == 1
+        saved_pilot = Pilot.objects.get()
+        assert saved_pilot.name == new_pilot_name
+        assert saved_pilot.gender == new_pilot_gender
+        assert saved_pilot.races_count == new_pilot_races_count
+        url = reverse( PilotDetail.name, None, {saved_pilot.pk})
+        authorized_get_response = self.client.get(url, format='json')
+        assert authorized_get_response.status_code ==status.HTTP_200_OK
+        assert authorized_get_response.data['name'] == new_pilot_name
+        self.client.credentials() #without arguments to clear
+        unauthorized_get_response = self.client.get(url, format='json') 
+        assert unauthorized_get_response.status_code == status.HTTP_401_UNAUTHORIZED
+            
