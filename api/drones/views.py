@@ -10,6 +10,9 @@ from django_filters import AllValuesFilter, DateFilter,NumberFilter,FilterSet,Da
 from rest_framework import filters
 from rest_framework import permissions
 from . import user_permissions
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+
 class CompetitionFilter(FilterSet):
    
     min_distance_in_feet = NumberFilter(
@@ -97,18 +100,23 @@ class PilotList(generics.ListCreateAPIView):
         'name',
         'races_count'
         )
+    authentication_classes = (TokenAuthentication,SessionAuthentication)
+    permission_classes = (IsAuthenticated,)
+
 class PilotDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pilot.objects.all()
     serializer_class = PilotSerializer
     name = 'pilot-detail'
+    authentication_classes = (TokenAuthentication,SessionAuthentication)
+    permission_classes = (IsAuthenticated,)
+
 class CompetitionList(generics.ListCreateAPIView):
     queryset = Competition.objects.all()
     serializer_class = PilotCompetitionSerializer
     name = 'competition-list'
     filter_class = CompetitionFilter
-    ordering_fields = (
-    'distance_in_feet',
-    )
+    ordering_fields = ('distance_in_feet',)
+
 class CompetitionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Competition.objects.all()
     serializer_class = PilotCompetitionSerializer
