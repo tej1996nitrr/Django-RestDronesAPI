@@ -45,4 +45,17 @@ class PilotTestCase(APITestCase):
         self.client.credentials() #without arguments to clear
         unauthorized_get_response = self.client.get(url, format='json') 
         assert unauthorized_get_response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    def test_try_to_post_pilot_without_token(self):
+        """
+        Test we cannot create a pilot without a token
+        """
+        new_pilot_name = 'Unauthorized Pilot'
+        new_pilot_gender = Pilot.MALE
+        new_pilot_races_count = 5
+        response = self.post_pilot(new_pilot_name,new_pilot_gender,races_count=new_pilot_races_count)
+        print(response)
+        print(Pilot.objects.count())
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+        assert Pilot.objects.count() == 0
             
