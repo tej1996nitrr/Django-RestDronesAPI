@@ -7,4 +7,6 @@ Implemented with a TDD approach using pytest.
 1. django=3
 2. django-rest-framework
 3. pytest
-4. django-pytest
+4. pytest-django
+5. django-filter 
+6. pytest-cov = "*"
